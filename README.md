@@ -20,13 +20,7 @@ A fast, touch-optimized Progressive Web App (PWA) that aggregates discount offer
 
 ## Data Pipeline
 
-The frontend relies on a generated `offers.json` file. To generate or update the offers list from the source CSV files:
-
-```bash
-python3 scratch/generate_offers_json.py
-```
-
-This script merges `vivup_offers.csv` and `lebara_offers.csv`, cleans brand names, standardizes offer types, assigns categories, and outputs the optimized `pwa/data/offers.json`.
+The frontend relies on an `offers.json` file.
 
 ## Development & Testing
 
@@ -42,14 +36,6 @@ The frontend logic uses Jest and JSDOM for testing. To run the tests:
 npm install
 npm test
 ```
-
-## Hosting on GitHub Pages
-
-This app is designed to be hosted seamlessly on GitHub Pages:
-1. Push this repository to GitHub.
-2. Go to your repository settings -> Pages.
-3. Select the branch (e.g., `main`) and the root directory (or if you want to deploy only the PWA, configure a GitHub Action to deploy the `pwa/` folder).
-4. Save and your site will be live.
 
 ## License
 
