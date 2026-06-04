@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Offers Directory</title>
+  <meta name="description" content="Search and discover your available discounts — 700+ Vivup & Lebara offers in one place">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Offers">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── Sticky Header ───────────────────────────────────────────── -->
+  <header class="app-header">
+    <div class="header-top">
+      <h1>🏷️ Offers Directory</h1>
+      <span class="offer-count" id="offer-count">Loading…</span>
+    </div>
+    <div class="search-wrap">
+      <input
+        type="search"
+        id="search-input"
+        placeholder="Search brands, types, keywords…"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        enterkeyhint="search"
+        aria-label="Search offers"
+      >
+      <button class="search-clear hidden" id="search-clear" aria-label="Clear search">✕</button>
+    </div>
+  </header>
+
+  <!-- ── Filter Bar ──────────────────────────────────────────────── -->
+  <div class="filter-bar" role="toolbar" aria-label="Filter offers">
+
+    <button id="btn-open-filters" aria-label="Open Filters">
+      Filters <span id="filter-badge" class="badge-count hidden">0</span>
+    </button>
+
+    <div class="filter-select-wrap pct-wrap" style="display:flex;align-items:center;gap:6px;">
+      <select id="filter-min-pct" aria-label="Minimum discount">
+        <option value="0">Any %</option>
+        <option value="5">5%+</option>
+        <option value="10">10%+</option>
+        <option value="20">20%+</option>
+        <option value="30">30%+</option>
+        <option value="50">50%+</option>
+      </select>
+    </div>
+
+    <button id="clear-filters" hidden aria-label="Clear all filters">✕ Clear</button>
+  </div>
+
+  <!-- ── Main Content ───────────────────────────────────────────── -->
+  <main>
+
+    <!-- Loading skeleton -->
+    <div id="main-loading" class="loading-overlay">
+      <div class="spinner"></div>
+      <span>Loading offers…</span>
+    </div>
+
+    <!-- Pinned Offers -->
+    <section id="pinned-section" class="pinned-section" hidden aria-label="Pinned offers">
+      <div class="pinned-header" id="pinned-header" role="button" tabindex="0" aria-expanded="true">
+        <span class="pinned-header-label">📌 Pinned (<span id="pinned-count">0</span>)</span>
+        <button class="pinned-toggle" id="pinned-toggle" aria-label="Toggle pinned section">▾</button>
+      </div>
+      <div id="pinned-grid" class="offers-grid"></div>
+    </section>
+
+    <!-- Results bar -->
+    <div class="results-bar">
+      <span class="results-count" id="results-count"></span>
+      <div class="sort-wrap">
+        <select id="sort-select" aria-label="Sort offers">
+          <option value="pct-desc">% High → Low</option>
+          <option value="pct-asc">% Low → High</option>
+          <option value="alpha">A → Z</option>
+          <option value="source">By Source</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Offers Grid -->
+    <div id="offers-grid" class="offers-grid" role="list" aria-label="Offers"></div>
+
+  </main>
+
+  <!-- ── Filter Modal ────────────────────────────────────────────── -->
+  <div id="filter-modal" class="modal-overlay hidden" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Filters</h2>
+        <button id="btn-close-filters" class="close-btn" aria-label="Close filters">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="filter-group">
+          <h3>Source</h3>
+          <div class="tickbox-grid">
+            <label class="tickbox"><input type="checkbox" value="vivup" data-group="source"> <span class="tick-label">Vivup</span></label>
+            <label class="tickbox"><input type="checkbox" value="lebara" data-group="source"> <span class="tick-label">Lebara</span></label>
+          </div>
+        </div>
+        <div class="filter-group">
+          <h3>Category</h3>
+          <div id="category-checkboxes" class="tickbox-grid"></div>
+        </div>
+        <div class="filter-group">
+          <h3>Offer Type</h3>
+          <div id="type-checkboxes" class="tickbox-grid"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-apply-filters" class="get-offer-btn">Show Results</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fuse.js for fuzzy search -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
