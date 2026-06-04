@@ -6,8 +6,8 @@
    - Static assets cached on install
    ============================================================ */
 
-const CACHE_NAME = 'offers-dir-v1';
-const DATA_CACHE = 'offers-data-v1';
+const CACHE_NAME = 'offers-dir-v2';
+const DATA_CACHE = 'offers-data-v2';
 
 const STATIC_ASSETS = [
   './',

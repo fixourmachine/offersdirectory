@@ -521,6 +521,7 @@ main {
 
 .badge-vivup { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.25); }
 .badge-lebara { background: rgba(229,0,106,0.15); color: #f9a8d4; border: 1px solid rgba(229,0,106,0.25); }
+.badge-blc { background: rgba(0,123,255,0.15); color: #93c5fd; border: 1px solid rgba(0,123,255,0.25); }
 .badge-type { background: rgba(255,255,255,0.05); color: var(--text-2); border: 1px solid var(--border); }
 
 /* Card title */

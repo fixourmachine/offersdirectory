@@ -306,9 +306,10 @@ function discountBadge(pct, display) {
 }
 
 function sourceBadge(source) {
-  return source === 'vivup'
-    ? `<span class="badge badge-vivup">Vivup</span>`
-    : `<span class="badge badge-lebara">Lebara</span>`;
+  if (source === 'vivup') return `<span class="badge badge-vivup">Vivup</span>`;
+  if (source === 'lebara') return `<span class="badge badge-lebara">Lebara</span>`;
+  if (source === 'Blue Light Card') return `<span class="badge badge-blc">Blue Light Card</span>`;
+  return `<span class="badge">${escHtml(source)}</span>`;
 }
 
 function createCard(offer, isPinned) {
@@ -434,19 +435,37 @@ function setupEvents() {
 }
 
 // ─── PWA Install Banner ────────────────────────────────────────────────────────
-function setupInstallBanner() {
-  let deferredPrompt;
+let deferredPrompt;
+if (typeof window !== 'undefined') {
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
+  });
+}
 
-    // Show install banner after 3s if not dismissed before
-    const dismissed = sessionStorage.getItem('install_dismissed');
-    if (dismissed) return;
+function setupInstallBanner() {
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  if (isStandalone) return;
 
-    setTimeout(() => {
-      const banner = document.createElement('div');
-      banner.className = 'install-banner';
+  const dismissed = sessionStorage.getItem('install_dismissed');
+  if (dismissed) return;
+
+  const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+
+  setTimeout(() => {
+    const banner = document.createElement('div');
+    banner.className = 'install-banner';
+    
+    if (isIos) {
+      banner.innerHTML = `
+        <span class="icon">📲</span>
+        <div class="text">
+          <strong>Install App</strong>
+          <small>Tap Share then 'Add to Home Screen'</small>
+        </div>
+        <button class="dismiss-btn" aria-label="Dismiss">✕</button>
+      `;
+    } else {
       banner.innerHTML = `
         <span class="icon">🏷️</span>
         <div class="text">
@@ -454,19 +473,33 @@ function setupInstallBanner() {
           <small>Quick access to all your offers</small>
         </div>
         <button class="install-btn">Install</button>
-        <button class="dismiss-btn">✕</button>
+        <button class="dismiss-btn" aria-label="Dismiss">✕</button>
       `;
-      banner.querySelector('.install-btn').addEventListener('click', () => {
-        deferredPrompt.prompt();
-        banner.remove();
+    }
+
+    const installBtn = banner.querySelector('.install-btn');
+    if (installBtn) {
+      installBtn.addEventListener('click', () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(() => {
+            deferredPrompt = null;
+            banner.remove();
+          });
+        } else {
+          alert('To install, open your browser menu and select "Add to Home Screen" or "Install App".');
+          banner.remove();
+        }
       });
-      banner.querySelector('.dismiss-btn').addEventListener('click', () => {
-        sessionStorage.setItem('install_dismissed', '1');
-        banner.remove();
-      });
-      document.body.appendChild(banner);
-    }, 3000);
-  });
+    }
+
+    banner.querySelector('.dismiss-btn').addEventListener('click', () => {
+      sessionStorage.setItem('install_dismissed', '1');
+      banner.remove();
+    });
+
+    document.body.appendChild(banner);
+  }, 2000);
 }
 
 // ─── Start ─────────────────────────────────────────────────────────────────────
