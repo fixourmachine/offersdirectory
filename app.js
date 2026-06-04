@@ -293,16 +293,32 @@ function render() {
 
 // ─── Card builder ─────────────────────────────────────────────────────────────
 function discountBadge(pct, display) {
-  if (pct == null) {
+  if (pct == null && !display) {
     return `<span class="discount-badge free">FREE / DEAL</span>`;
   }
+  if (pct == null && display) {
+    return `<span class="discount-badge tier-1">${escHtml(display)}</span>`;
+  }
+  
   let tier;
   if (pct >= 50) tier = 'tier-5';
   else if (pct >= 30) tier = 'tier-4';
   else if (pct >= 15) tier = 'tier-3';
   else if (pct >= 5)  tier = 'tier-2';
   else                tier = 'tier-1';
-  return `<span class="discount-badge ${tier}">${display || pct + '%'}</span>`;
+  
+  let text = display || (pct + '%');
+  
+  // Make it explicitly clearer if it doesn't already contain descriptive words
+  if (!/off|save|varies|deal|free/i.test(text)) {
+    if (!/%/.test(text) && !isNaN(parseFloat(text))) {
+      text = text + '% OFF';
+    } else {
+      text = text + ' OFF';
+    }
+  }
+
+  return `<span class="discount-badge ${tier}">${escHtml(text)}</span>`;
 }
 
 function sourceBadge(source) {
