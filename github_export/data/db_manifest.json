@@ -1,0 +1,17 @@
+{
+  "current_version": 1,
+  "versions": [
+    {
+      "version": 1,
+      "timestamp": "2026-06-06T08:21:50.486331+00:00",
+      "total": 3007,
+      "sources": {
+        "Health Service Discounts": 1891,
+        "vivup": 698,
+        "Blue Light Card": 370,
+        "lebara": 48
+      },
+      "archive": "offers_v000_2026-06-06.json"
+    }
+  ]
+}
