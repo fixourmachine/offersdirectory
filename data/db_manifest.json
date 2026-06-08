@@ -1,5 +1,5 @@
 {
-  "current_version": 3,
+  "current_version": 6,
   "versions": [
     {
       "version": 1,
@@ -36,6 +36,42 @@
         "lebara": 48
       },
       "archive": "offers_v002_2026-06-08.json"
+    },
+    {
+      "version": 4,
+      "timestamp": "2026-06-08T13:48:36.400089+00:00",
+      "total": 3048,
+      "sources": {
+        "Health Service Discounts": 1891,
+        "vivup": 698,
+        "Blue Light Card": 411,
+        "lebara": 48
+      },
+      "archive": "offers_v003_2026-06-08.json"
+    },
+    {
+      "version": 5,
+      "timestamp": "2026-06-08T13:49:33.166559+00:00",
+      "total": 3048,
+      "sources": {
+        "Health Service Discounts": 1891,
+        "vivup": 698,
+        "Blue Light Card": 411,
+        "lebara": 48
+      },
+      "archive": "offers_v004_2026-06-08.json"
+    },
+    {
+      "version": 6,
+      "timestamp": "2026-06-08T13:53:36.868037+00:00",
+      "total": 3048,
+      "sources": {
+        "Health Service Discounts": 1891,
+        "vivup": 698,
+        "lebara": 48,
+        "Blue Light Card": 411
+      },
+      "archive": "offers_v005_2026-06-08.json"
     }
   ]
 }
