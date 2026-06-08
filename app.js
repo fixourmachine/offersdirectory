@@ -325,8 +325,10 @@ function sourceBadge(source) {
   if (source === 'vivup') return `<span class="badge badge-vivup">Vivup</span>`;
   if (source === 'lebara') return `<span class="badge badge-lebara">Lebara</span>`;
   if (source === 'Blue Light Card') return `<span class="badge badge-blc">Blue Light Card</span>`;
+  if (source === 'Health Service Discounts') return `<span class="badge badge-hsd">HSD</span>`;
   return `<span class="badge">${escHtml(source)}</span>`;
 }
+
 
 function createCard(offer, isPinned) {
   const card = document.createElement('div');
